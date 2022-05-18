@@ -1,0 +1,13 @@
+Iniciar um novo projeto Elastic Beanstalk
+eb init
+
+
+instalar bcrypt
+npm i bcrypt --save
+npm i --save-dev @types/bcrypt
+
+
+apos rodar o build com 
+npm run build
+
+rodar o deploy eb deploy
