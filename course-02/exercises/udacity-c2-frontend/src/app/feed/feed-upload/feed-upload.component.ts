@@ -33,6 +33,7 @@ export class FeedUploadComponent implements OnInit {
   setPreviewDataUrl(file: Blob) {
     const reader  = new FileReader();
     reader.onloadend = () => {
+      debugger;
       this.previewDataUrl = reader.result;
     };
 

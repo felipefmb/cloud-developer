@@ -7,9 +7,8 @@ const router: Router = Router();
 // Displays a simple message to the user
 
 router.get("/", async (req, res) => {
-  console.log('host: ', req.get("host"));
-  let redirectUrl  = `${req.protocol}://${req.get("host")}/api/${config.routerVersion}`;
-  res.redirect(redirectUrl);
+    res.send("Choose: /api/v0/login or /api/v0/user");
+
 });
 
 export const DefaultRouter: Router = router;
