@@ -1,0 +1,28 @@
+Iniciar um novo projeto Elastic Beanstalk
+eb init
+após configurar, abrir o arquivo config.yml do eb e passar a seguinte configuração:
+deploy:
+  artifact: ./www/Archive.zip
+
+  depois eb create
+    Enter Environment Name : enter as default
+    Enter DNS CNAME prefix : enter as default
+    Select a load balancer type: 2) application
+    Would you like to enable Spot Fleet requests for this environment? Instancias spot: N
+    criar role: sim
+
+configurar variáveis de ambiente no elastic beanstalk -> é no console
+
+depois vai no iam e atacha a poliy criada para o s3 na role aws-elasticbeanstalk-ec2-role
+
+
+
+instalar bcrypt
+npm i bcrypt --save
+npm i --save-dev @types/bcrypt
+
+
+apos rodar o build com 
+npm run build
+
+rodar o deploy eb deploy

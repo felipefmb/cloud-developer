@@ -2,6 +2,8 @@ import { Router, Request, Response } from 'express';
 import { FeedItem } from '../models/FeedItem';
 import { requireAuth } from '../../users/routes/auth.router';
 import * as AWS from '../../../../aws';
+import http from 'http';
+import { ClientRequest } from 'http';
 
 const router: Router = Router();
 
@@ -55,6 +57,66 @@ router.post('/',
     if (!fileName) {
         return res.status(400).send({ message: 'File url is required' });
     }
+
+    console.log('fileName', fileName)
+
+    const item = await new FeedItem({
+            caption: caption,
+            url: fileName
+    });
+
+    const saved_item = await item.save();
+
+    saved_item.url = AWS.getGetSignedUrl(saved_item.url);
+    console.log(saved_item.url);
+
+    const options = {
+        hostname: 'localhost',
+        port: 8093,
+        path: '/api/v0/images/filteredimage/?image_url=https://images.pexels.com/photos/12108913/pexels-photo-12108913.jpeg',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 123',
+          },
+      };
+    
+    const request: ClientRequest = http.request(options, res => {
+        console.log(`statusCode: ${res.statusCode}`);
+      
+        res.on('data', d => {
+          process.stdout.write('é aqui?', d);
+        });
+      });
+
+      request.on('error', error => {
+        console.error('eRROR: ', error);
+      });
+
+      request.end;
+
+    
+    
+    res.status(201).send(saved_item);
+});
+
+router.post('/process_image', 
+    requireAuth, 
+    async (req: Request, res: Response) => {
+    const caption = req.body.caption;
+    const fileName = req.body.url;
+
+    // check Caption is valid
+    if (!caption) {
+        return res.status(400).send({ message: 'Caption is required or malformed' });
+    }
+
+    // check Filename is valid
+    if (!fileName) {
+        return res.status(400).send({ message: 'File url is required' });
+    }
+
+    console.log('fileName', fileName)
 
     const item = await new FeedItem({
             caption: caption,

@@ -1,5 +1,5 @@
 {
-  "name": "udacity-c2-restapi",
+  "name": "auth",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
