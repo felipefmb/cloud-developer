@@ -1,20 +1,21 @@
 import AWS = require("aws-sdk");
-import { config } from "../app/config";
+import { AppConfig } from "../app/AppConfig";
+import { EnvConfig } from "../app/EnvConfig";
 import * as fs from "fs";
-import { DataSync } from "aws-sdk";
 import { S3Data } from "./S3Data";
+import { S3Params } from "./S3Params";
 
-const c = config.dev;
-
+const config: AppConfig = new AppConfig();
+const c: EnvConfig = config.env_config;
 //Configure AWS
 if (c.aws_profile !== "DEPLOYED") {
-  var credentials = new AWS.SharedIniFileCredentials({
+  var credentials: AWS.SharedIniFileCredentials = new AWS.SharedIniFileCredentials({
     profile: c.aws_profile,
   });
   AWS.config.credentials = credentials;
 }
 
-export const s3 = new AWS.S3({
+export const s3: AWS.S3 = new AWS.S3({
   signatureVersion: "v4",
   region: c.aws_region,
   params: { Bucket: c.aws_media_bucket },
@@ -27,13 +28,15 @@ export const s3 = new AWS.S3({
  *    a url as a string
  */
 export function getGetSignedUrl(key: string): string {
-  const signedUrlExpireSeconds = 60 * 5;
+  const signedUrlExpireSeconds: number = 60 * 5;
 
-  const url = s3.getSignedUrl("getObject", {
+  /*const url: string = s3.getSignedUrl("getObject", {
     Bucket: c.aws_media_bucket,
     Key: key,
     Expires: signedUrlExpireSeconds,
-  });
+  });*/
+
+  const url: string = s3.getSignedUrl("getObject", new S3Params(c.aws_media_bucket, key, undefined, signedUrlExpireSeconds));
 
   return url;
 }
@@ -45,24 +48,30 @@ export function getGetSignedUrl(key: string): string {
  *    a url as a string
  */
 export function getPutSignedUrl(key: string) {
-  const signedUrlExpireSeconds = 60 * 5;
+  const signedUrlExpireSeconds: number = 60 * 5;
 
-  const url = s3.getSignedUrl("putObject", {
+  /*const url: string = s3.getSignedUrl("putObject", {
     Bucket: c.aws_media_bucket,
     Key: key,
     Expires: signedUrlExpireSeconds,
   });
+  */
+
+  const url: string = s3.getSignedUrl("putObject", new S3Params(c.aws_media_bucket, key, undefined, signedUrlExpireSeconds));
 
   return url;
 }
 
 export async function uploadS3(path: string) {
-  const fileContent = fs.readFileSync(path);
-  const params = {
+  const fileContent: Buffer = fs.readFileSync(path);
+  
+  const params: any = new S3Params(c.aws_media_bucket, `file_${Math.floor(Math.random() * 2000)}.jpeg`, fileContent);
+  
+  /*const params = {
     Bucket: c.aws_media_bucket,
     Key: `file_${Math.floor(Math.random() * 2000)}.jpeg`, // File name you want to save as in S3
     Body: fileContent,
-  };
+  };*/
 
   const data = await s3.upload(params, function (err: Error, data: AWS.S3.ManagedUpload.SendData) {
     if (err) {

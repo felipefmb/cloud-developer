@@ -1,15 +1,16 @@
 require('dotenv').config();
 import express from 'express';
 import bodyParser from 'body-parser';
+import {AppConfig} from './config/app/AppConfig';
 
 import { DefaultRouter } from './controllers/v0/default.router'
 import { IndexRouter } from './controllers/v0/index.router'
-import { config } from './config/app/config';
 
 (async () => {
 
   // Init the Express application
   const app = express();
+  const config = new AppConfig();
 
   // Set the network port
   const port = process.env.PORT || 8093;
@@ -25,7 +26,7 @@ import { config } from './config/app/config';
   });
 
   app.use('/', DefaultRouter)
-  app.use(`/api/${config.routerVersion}/`, IndexRouter)
+  app.use(`/api/${config.router_version}/`, IndexRouter)
 
   // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
   // GET /filteredimage?image_url={{URL}}
