@@ -5,8 +5,6 @@ const router: Router = Router();
 
 router.use("/images/", ImagesRouter);
 
-// Root Endpoint
-// Displays a simple message to the user
 router.get("/", async (req, res) => {
   res.send("try GET /images/filteredimage?image_url={{}}");
 });
