@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "3b29d8ef-0fa7-46b3-aae6-bb05a7240b5a",
+		"name": "udagram",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "CriaUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"hh@hh.com\",\n    \"password\" : \"hh\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_host}}/api/v0/auth/user",
+							"host": [
+								"{{auth_host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"auth",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"gg@gg.com\",\n    \"password\" : \"gg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_host}}/api/v0/auth/login",
+							"host": [
+								"{{auth_host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "image-filter-starter-code",
+			"item": [
+				{
+					"name": "filtered_image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_image_filter_host}}/api/v0/images/filteredimage?image_url=https://images.pexels.com/photos/12108913/pexels-photo-12108913.jpeg",
+							"host": [
+								"{{api_image_filter_host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"images",
+								"filteredimage"
+							],
+							"query": [
+								{
+									"key": "image_url",
+									"value": "https://images.pexels.com/photos/12108913/pexels-photo-12108913.jpeg"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
