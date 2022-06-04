@@ -9,15 +9,15 @@ import { Json } from "sequelize/types/lib/utils";
 
 export class S3Params {
 
-    public bucket: string;
-    public key: string;
-    public body?: Buffer;
-    public expires?: number;
+    public Bucket: string;
+    public Key: string;
+    public Body?: Buffer;
+    public Expires?: number;
 
-    constructor(bucket: string, key: string, body?: Buffer, expires?: number) {
-        this.bucket = bucket;
-        this.key = key;
-        this.body = body
-        this.expires = expires;
+    constructor(Bucket: string, Key: string, Body?: Buffer, Expires?: number) {
+        this.Bucket = Bucket;
+        this.Key = Key;
+        this.Body = Body
+        this.Expires = Expires;
     }
 }
