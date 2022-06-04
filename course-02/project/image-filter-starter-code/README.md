@@ -43,6 +43,19 @@ Prevent requests without valid authentication headers.
 > !!NOTE if you choose to submit this, make sure to add the token to the postman collection and export the postman collection file to your submission so we can review!
 
 ### Custom Domain Name
-
 Add your own domain name and have it point to the running services (try adding a subdomain name to point to the processing server)
 > !NOTE: Domain names are not included in AWS’ free tier and will incur a cost.
+
+
+Example git process:
+https://github.com/felipefmb/cloud-developer/pull/15
+
+authentication
+  create user
+    udagram-auth-dev.us-east-1.elasticbeanstalk.com/api/v0/auth/user
+  login
+    udagram-auth-dev.us-east-1.elasticbeanstalk.com/api/v0/auth/login
+
+image-filter-starter-code
+  process image and store s3 bucket
+    image-filter-starter-code-dev-cname.us-east-1.elasticbeanstalk.com/api/v0/images/filteredimage?image_url=https://images.pexels.com/photos/12108913/pexels-photo-12108913.jpeg
